@@ -1,0 +1,273 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Project Structure" id="proj-structure">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="2" value="COMP 382 Assignment 3 — Project Structure" style="text;html=1;fontSize=18;fontStyle=1;fontFamily=Helvetica;align=center;" vertex="1" parent="1">
+          <mxGeometry x="350" y="20" width="400" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== main.py (center entry point) ==================== -->
+        <mxCell id="10" value="main.py&#xa;(entry point)" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=13;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="460" y="90" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== PUSHPDEEP COLUMN ==================== -->
+
+        <!-- Pushpdeep folder header -->
+        <mxCell id="20" value="Pushpdeep/" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="100" y="200" width="200" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="21" value="tm_data.py&#xa;TMData, TransitionAction" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;fontFamily=Helvetica;align=center;" vertex="1" parent="1">
+          <mxGeometry x="60" y="280" width="130" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="22" value="parser.py&#xa;parse_tm_file()&#xa;validate_tm()" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;fontFamily=Helvetica;align=center;" vertex="1" parent="1">
+          <mxGeometry x="210" y="280" width="130" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Pushpdeep internal arrows -->
+        <mxCell id="23" style="endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="20" target="21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="24" style="endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="20" target="22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- parser uses tm_data -->
+        <mxCell id="25" style="endArrow=open;endFill=0;dashed=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="22" target="21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="26" value="imports" style="text;html=0;fontSize=9;fontFamily=Helvetica;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="155" y="290" width="45" height="15" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== GURJASRAJ COLUMN ==================== -->
+
+        <!-- Gurjasraj folder header -->
+        <mxCell id="30" value="Gurjasraj/" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="440" y="200" width="200" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="31" value="simulator.py&#xa;Tape, TMSimulator" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontFamily=Helvetica;align=center;" vertex="1" parent="1">
+          <mxGeometry x="400" y="280" width="130" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="32" value="pi_algorithm.py&#xa;spigot_pi()&#xa;generate_pi_tm()" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontFamily=Helvetica;align=center;" vertex="1" parent="1">
+          <mxGeometry x="550" y="280" width="130" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Gurjasraj internal arrows -->
+        <mxCell id="33" style="endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="30" target="31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="34" style="endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="30" target="32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Machines folder -->
+        <mxCell id="35" value="Machines/" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="440" y="380" width="200" height="35" as="geometry" />
+        </mxCell>
+
+        <mxCell id="36" value="binary_increment.tm" style="shape=note;size=10;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;fontFamily=Helvetica;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="380" y="445" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="37" value="simple_accept.tm" style="shape=note;size=10;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;fontFamily=Helvetica;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="380" y="485" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="38" value="pi_calculator.tm" style="shape=note;size=10;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;fontFamily=Helvetica;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="380" y="525" width="130" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="39" value="tm_simulator_gui.html" style="shape=note;size=10;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;fontFamily=Helvetica;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="550" y="445" width="140" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Machines arrows -->
+        <mxCell id="40" style="endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="30" target="35">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="41" style="endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="35" target="36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="42" style="endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="35" target="37">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="43" style="endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="35" target="38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== TESTING COLUMN ==================== -->
+
+        <mxCell id="50" value="Testing" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="800" y="200" width="200" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="51" value="harmitha_tests.py" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;fontFamily=Helvetica;align=center;" vertex="1" parent="1">
+          <mxGeometry x="770" y="280" width="120" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="52" value="test_pushpdeep.py" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;fontFamily=Helvetica;align=center;" vertex="1" parent="1">
+          <mxGeometry x="910" y="280" width="120" height="35" as="geometry" />
+        </mxCell>
+
+        <mxCell id="53" style="endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="50" target="51">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="54" style="endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="50" target="52">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== ROOT FILES ==================== -->
+
+        <mxCell id="60" value="Root Files" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;fontSize=12;fontFamily=Helvetica;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="800" y="380" width="200" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="61" value="dataclass.py" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;fontFamily=Helvetica;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="770" y="445" width="100" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="62" value="encoding_spec.md" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;fontFamily=Helvetica;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="880" y="445" width="110" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="63" value="examples.tm" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;fontFamily=Helvetica;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="770" y="483" width="100" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="64" value="README.md" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;fontFamily=Helvetica;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="880" y="483" width="110" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="65" value="TM_Specification.docx" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;fontFamily=Helvetica;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="810" y="521" width="140" height="28" as="geometry" />
+        </mxCell>
+
+        <mxCell id="66" style="endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="60" target="61">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="67" style="endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="60" target="62">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== EXTERNAL ==================== -->
+
+        <mxCell id="70" value="mpmath&#xa;(external API)" style="shape=hexagon;perimeter=hexagonPerimeter2;size=0.15;whiteSpace=wrap;html=0;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;fontFamily=Helvetica;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="570" y="600" width="120" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== DEPENDENCY ARROWS ==================== -->
+
+        <!-- main.py -> Pushpdeep -->
+        <mxCell id="80" style="endArrow=open;endFill=0;dashed=1;exitX=0;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="10" target="20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="81" value="imports" style="text;html=0;fontSize=9;fontFamily=Helvetica;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="310" y="155" width="45" height="15" as="geometry" />
+        </mxCell>
+
+        <!-- main.py -> Gurjasraj -->
+        <mxCell id="82" style="endArrow=open;endFill=0;dashed=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="10" target="30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="83" value="imports" style="text;html=0;fontSize=9;fontFamily=Helvetica;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="550" y="155" width="45" height="15" as="geometry" />
+        </mxCell>
+
+        <!-- main.py -> Testing -->
+        <mxCell id="84" style="endArrow=open;endFill=0;dashed=1;exitX=1;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="10" target="50">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- simulator -> parser (cross-module) -->
+        <mxCell id="85" style="endArrow=open;endFill=0;dashed=1;strokeColor=#FF0000;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="31" target="22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="86" value="imports parser" style="text;html=0;fontSize=9;fontFamily=Helvetica;fontStyle=2;fontColor=#FF0000;" vertex="1" parent="1">
+          <mxGeometry x="340" y="285" width="70" height="15" as="geometry" />
+        </mxCell>
+
+        <!-- pi_algorithm -> mpmath -->
+        <mxCell id="87" style="endArrow=open;endFill=0;dashed=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="32" target="70">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="615" y="370" />
+              <mxPoint x="630" y="560" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="88" value="verifies pi" style="text;html=0;fontSize=9;fontFamily=Helvetica;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="640" y="560" width="60" height="15" as="geometry" />
+        </mxCell>
+
+        <!-- pi_algorithm generates .tm files -->
+        <mxCell id="89" style="endArrow=open;endFill=0;dashed=1;strokeColor=#b85450;exitX=0;exitY=1;entryX=1;entryY=0;" edge="1" parent="1" source="32" target="38">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="370" />
+              <mxPoint x="540" y="520" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="90" value="generates" style="text;html=0;fontSize=9;fontFamily=Helvetica;fontStyle=2;fontColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="540" y="505" width="55" height="15" as="geometry" />
+        </mxCell>
+
+        <!-- parser reads .tm files -->
+        <mxCell id="91" style="endArrow=open;endFill=0;dashed=1;strokeColor=#b85450;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="22" target="36">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="275" y="400" />
+              <mxPoint x="275" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="92" value="reads" style="text;html=0;fontSize=9;fontFamily=Helvetica;fontStyle=2;fontColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="290" y="440" width="35" height="15" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== LEGEND ==================== -->
+        <mxCell id="100" value="" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="60" y="620" width="15" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="101" value="Pushpdeep — parser + data classes" style="text;html=0;fontSize=10;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="80" y="618" width="220" height="18" as="geometry" />
+        </mxCell>
+
+        <mxCell id="102" value="" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="60" y="645" width="15" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="103" value="Gurjasraj — simulator + pi algorithm + GUI" style="text;html=0;fontSize=10;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="80" y="643" width="260" height="18" as="geometry" />
+        </mxCell>
+
+        <mxCell id="104" value="" style="rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="60" y="670" width="15" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="105" value="main.py — integrated entry point" style="text;html=0;fontSize=10;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="80" y="668" width="220" height="18" as="geometry" />
+        </mxCell>
+
+        <mxCell id="106" value="" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="60" y="695" width="15" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="107" value="Testing + external libraries" style="text;html=0;fontSize=10;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="80" y="693" width="200" height="18" as="geometry" />
+        </mxCell>
+
+        <mxCell id="108" value="" style="shape=note;size=8;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="60" y="720" width="15" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="109" value=".tm machine description files" style="text;html=0;fontSize=10;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="80" y="718" width="200" height="18" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
