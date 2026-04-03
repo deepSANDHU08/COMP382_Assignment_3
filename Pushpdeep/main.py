@@ -1,4 +1,4 @@
-from Pushpdeep.parser import parse_tm_file
+from parser import parse_tm_file
 
 
 def main():

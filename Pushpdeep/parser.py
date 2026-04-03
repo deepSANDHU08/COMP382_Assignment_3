@@ -1,6 +1,6 @@
 from typing import Dict, List, Tuple
-from Pushpdeep.tm_data import TMData, TrasitionAction
-from dataclass import TransitionAction
+from tm_data import TMData, TrasitionAction
+
 
 def parse_list(value: str) -> List[str]:
     parts = value.split(',')
@@ -81,7 +81,7 @@ def parse_tm_file(file_path: str) -> TMData:
         cleaned_lines.append(line)
 
     fields = {}
-    transitions: Dict[Tuple[str, str], TransitionAction] = {}
+    transitions: Dict[Tuple[str, str], TrasitionAction] = {}
 
     in_transitions = False
 
