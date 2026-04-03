@@ -1,5 +1,6 @@
 from typing import Dict, List, Tuple
 from Pushpdeep.tm_data import TMData, TrasitionAction
+from dataclass import TransitionAction
 
 def parse_list(vlaue: str) -> List[str]:
     parts = vlaue.split(',')
@@ -65,3 +66,34 @@ def validate_tm(tm: TMData) -> None:
 
         if action.direction not in ("L", "R"):
             raise ValueError(f"Invalid direction '{action.direction}' in transitions.")
+
+def parse_tm_file(file_path: str) -> TMData:
+    with open(file_path, "r", encoding="utf-8") as file:
+        lines = file.readlines()
+        # Remove empty lines and comment lines
+    cleaned_lines = []
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+        if line.startswith("#"):
+            continue
+        cleaned_lines.append(line)
+
+    fields = {}
+    transitions: Dict[Tuple[str, str], TransitionAction] = {}
+
+    in_transitions = False
+
+    for line in cleaned_lines:
+        if line.lower() == "transitions:":
+            in_transitions = True
+            continue
+
+        if not in_transitions:
+            if ":" not in line:
+                raise ValueError(f"Invalid line before transitions: {line}")
+
+            key, value = line.split(":", 1)
+            key = key.strip().lower()
+            value = value.strip()
