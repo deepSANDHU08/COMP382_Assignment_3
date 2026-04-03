@@ -28,3 +28,40 @@ def parse_transition_line(line: str) -> Tuple[Tuple[str, str], TrasitionAction]:
     key = (current_state, read_symbol)
     action = TrasitionAction(next_state=next_state, write_symbol=write_symbol, direction=direction)
     return key, action
+
+def validate_tm(tm: TMData) -> None:
+    # Check special states
+    if tm.start_state not in tm.states:
+        raise ValueError(f"Start state '{tm.start_state}' is not in states.")
+
+    if tm.accept_state not in tm.states:
+        raise ValueError(f"Accept state '{tm.accept_state}' is not in states.")
+
+    if tm.reject_state not in tm.states:
+        raise ValueError(f"Reject state '{tm.reject_state}' is not in states.")
+
+    # Check blank symbol
+    if tm.blank not in tm.tape_alphabet:
+        raise ValueError(f"Blank symbol '{tm.blank}' is not in tape alphabet.")
+
+    # Check input alphabet symbols are inside tape alphabet
+    for symbol in tm.input_alphabet:
+        if symbol not in tm.tape_alphabet:
+            raise ValueError(f"Input symbol '{symbol}' is not in tape alphabet.")
+
+    # Check transitions
+    for (current_state, read_symbol), action in tm.transitions.items():
+        if current_state not in tm.states:
+            raise ValueError(f"Unknown current state '{current_state}' in transitions.")
+
+        if read_symbol not in tm.tape_alphabet:
+            raise ValueError(f"Read symbol '{read_symbol}' is not in tape alphabet.")
+
+        if action.next_state not in tm.states:
+            raise ValueError(f"Next state '{action.next_state}' is not in states.")
+
+        if action.write_symbol not in tm.tape_alphabet:
+            raise ValueError(f"Write symbol '{action.write_symbol}' is not in tape alphabet.")
+
+        if action.direction not in ("L", "R"):
+            raise ValueError(f"Invalid direction '{action.direction}' in transitions.")
