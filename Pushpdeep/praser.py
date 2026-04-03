@@ -2,8 +2,8 @@ from typing import Dict, List, Tuple
 from Pushpdeep.tm_data import TMData, TrasitionAction
 from dataclass import TransitionAction
 
-def parse_list(vlaue: str) -> List[str]:
-    parts = vlaue.split(',')
+def parse_list(value: str) -> List[str]:
+    parts = value.split(',')
     return [part.strip() for part in parts if part.strip()]
 
 def parse_transition_line(line: str) -> Tuple[Tuple[str, str], TrasitionAction]:
