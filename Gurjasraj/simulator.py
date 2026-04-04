@@ -1,19 +1,3 @@
-# simulator.py — TM Simulator and Execution Engine
-# Member 5: Gurjasraj
-#
-# This is the core implementation that actually runs the encoded Turing machine.
-# It takes a parsed TMData object and executes it step by step:
-#   - manages the tape (infinite in both directions)
-#   - tracks the head position
-#   - reads the current symbol
-#   - applies transitions (write symbol, move head, change state)
-#   - stops when the machine reaches a halting state (qaccept or qreject)
-#
-# Resources used:
-#   - MIT OCW Lecture 5: Turing Machines
-#   - MIT OCW Lecture 6: TM Variants, Church-Turing Thesis
-#   - Python official docs: argparse
-
 import argparse
 from collections import defaultdict
 from typing import List, Optional
