@@ -420,3 +420,12 @@ Later, the format could be extended to support:
 * machine metadata
 
 For the current project, the deterministic single-tape format above is enough.
+
+## Testing
+
+Parser was tested using a valid TM input.
+
+- The system successfully loaded TM components
+- States, alphabets, and transitions were correctly parsed
+
+Screenshot has been added as proof of successful execution.
