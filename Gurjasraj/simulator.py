@@ -1,7 +1,15 @@
 import argparse
 from collections import defaultdict
+from pathlib import Path
+import sys
 from typing import List, Optional
-from tm_data import TMData, TransitionAction
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from Pushpdeep.parser import parse_tm_file
+from Pushpdeep.tm_data import TMData, TransitionAction
 
 
 class Tape:
@@ -297,9 +305,6 @@ def main():
     )
 
     args = arg_parser.parse_args()
-
-    # Import parser here to avoid circular imports at module level
-    from parser import parse_tm_file
 
     # --- Parse the TM file ---
     print(f"Loading TM from: {args.tm_file}")
