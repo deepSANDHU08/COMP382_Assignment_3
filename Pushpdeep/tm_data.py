@@ -4,7 +4,7 @@ from typing import Dict, List, Tuple
 
 
 @dataclass
-class TrasitionAction:
+class TransitionAction:
     next_state: str
     write_symbol: str
     direction: str #'L' or 'R'
@@ -15,9 +15,9 @@ class TMData:
     input_alphabet: List[str]
     tape_alphabet: List[str]
     blank: str
-    initial_state: str
-    accepting_states: List[str]
-    rejecting_states: List[str]
+    start_state: str
+    accept_state: str
+    reject_state: str
     #key: (current_state, read_symbol)
     #Value: TransitionAction
-    transitions: Dict[Tuple[str, str], TrasitionAction] = field(default_factory=dict)
+    transitions: Dict[Tuple[str, str], TransitionAction] = field(default_factory=dict)

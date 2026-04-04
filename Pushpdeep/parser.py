@@ -1,12 +1,12 @@
 from typing import Dict, List, Tuple
-from tm_data import TMData, TrasitionAction
+from tm_data import TMData, TransitionAction
 
 
 def parse_list(value: str) -> List[str]:
     parts = value.split(',')
     return [part.strip() for part in parts if part.strip()]
 
-def parse_transition_line(line: str) -> Tuple[Tuple[str, str], TrasitionAction]:
+def parse_transition_line(line: str) -> Tuple[Tuple[str, str], TransitionAction]:
     # Expected format: current_state, read_symbol -> next_state, write_symbol, direction
     #Example line: 
     # q0, 1 -> q1,X,R
@@ -27,7 +27,7 @@ def parse_transition_line(line: str) -> Tuple[Tuple[str, str], TrasitionAction]:
         raise ValueError(f"Invalid direction: {direction} in line: {line}")
     
     key = (current_state, read_symbol)
-    action = TrasitionAction(next_state=next_state, write_symbol=write_symbol, direction=direction)
+    action = TransitionAction(next_state=next_state, write_symbol=write_symbol, direction=direction)
     return key, action
 
 def validate_tm(tm: TMData) -> None:
@@ -81,7 +81,7 @@ def parse_tm_file(file_path: str) -> TMData:
         cleaned_lines.append(line)
 
     fields = {}
-    transitions: Dict[Tuple[str, str], TrasitionAction] = {}
+    transitions: Dict[Tuple[str, str], TransitionAction] = {}
 
     in_transitions = False
 
@@ -97,3 +97,25 @@ def parse_tm_file(file_path: str) -> TMData:
             key, value = line.split(":", 1)
             key = key.strip().lower()
             value = value.strip()
+            fields[key] = value
+        else:
+            # Parse each transition line
+            key, action = parse_transition_line(line)
+            if key in transitions:
+                raise ValueError(f"Duplicate transition for {key} - machine must be deterministic.")
+            transitions[key] = action
+
+    # Build TMData from the parsed fields
+    tm = TMData(
+        states=parse_list(fields["states"]),
+        input_alphabet=parse_list(fields["input_alphabet"]),
+        tape_alphabet=parse_list(fields["tape_alphabet"]),
+        blank=fields["blank"],
+        start_state=fields["start"],
+        accept_state=fields["accept"],
+        reject_state=fields["reject"],
+        transitions=transitions
+    )
+
+    validate_tm(tm)
+    return tm
