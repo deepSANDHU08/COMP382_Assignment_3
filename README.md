@@ -409,6 +409,9 @@ This allows one Python simulator to execute any TM description written in the re
 
 ---
 
+## Vlog Section
+## Vlog of Jang - https://drive.google.com/file/d/1EGtaC6TZnZOiMsCeG1nlmsicSlw_G9bi/view?usp=drive_link
+
 ## Possible Future Improvements
 
 Later, the format could be extended to support:
