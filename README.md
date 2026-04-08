@@ -420,3 +420,25 @@ Later, the format could be extended to support:
 * machine metadata
 
 For the current project, the deterministic single-tape format above is enough.
+
+## Testing and Validation
+
+The system was tested using both valid and invalid Turing Machine inputs.
+
+- Verified that the parser correctly loads TM components such as states, alphabets, and transitions.
+- Checked that invalid inputs produce appropriate error messages.
+- Implemented automated test cases in Python to validate the functionality of `main.py` and parser logic.
+- Used subprocess-based testing to run the program and verify output.
+
+Screenshots of successful execution have been added as proof.
+
+## References
+
+GeeksforGeeks. (2020, August 14). *Getting started with unit testing in Python*. GeeksforGeeks. https://www.geeksforgeeks.org/python/python-unit-testing/
+
+Python Software Foundation. (n.d.). *unittest — Unit testing framework*. https://docs.python.org/3/library/unittest.html
+
+Corey Schafer. (2019, July 24). *Python tutorial: Calling external commands using the subprocess module* [Video]. YouTube. https://www.youtube.com/watch?v=2Fp1N6dof0Y
+
+ProgrammingKnowledge. (n.d.). *Python unit testing tutorial* [Video]. YouTube. https://www.youtube.com/watch?v=6tNS--WetLI
+
