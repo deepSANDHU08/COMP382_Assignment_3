@@ -434,8 +434,6 @@ Screenshots of successful execution have been added as proof.
 
 ## References
 
-GeeksforGeeks. (2020, August 14). *Getting started with unit testing in Python*. GeeksforGeeks. https://www.geeksforgeeks.org/python/python-unit-testing/
-
 Python Software Foundation. (n.d.). *unittest — Unit testing framework*. https://docs.python.org/3/library/unittest.html
 
 Corey Schafer. (2019, July 24). *Python tutorial: Calling external commands using the subprocess module* [Video]. YouTube. https://www.youtube.com/watch?v=2Fp1N6dof0Y
