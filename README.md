@@ -1,58 +1,146 @@
-# Turing Machine Input Format for the Simulator
+# COMP 382 Assignment 3: Turing Machine Parser, Simulator, and Pi Generator
 
-This document explains how a Turing Machine (TM) should be written so that the Python simulator can read it as an input string and execute it.
+This project builds a small Turing Machine toolkit in Python. The repository can:
 
----
+- parse a `.tm` machine description into Python data structures
+- validate that the machine definition is well formed
+- simulate the machine step by step on a tape
+- generate a Turing Machine that writes digits of pi
+- verify the pi digits with `mpmath` when that library is installed
 
-## Project Goal
+## How the Project Fits Together
 
-The simulator should accept a TM description as input, parse it, and then simulate the machine step by step. This makes the simulator behave like a simple **Universal Turing Machine**.
+The project flow is:
 
-For this project, one TM description will be used to compute an approximation of **pi to *n* decimal places**.
+1. A `.tm` file is read by the parser.
+2. The parser converts it into a `TMData` object.
+3. The simulator runs that machine on an input tape.
+4. For the pi task, `pi_algorithm.py` first computes digits of pi, then generates a `.tm` file that the simulator can run.
+5. `main.py` acts as the single command-line entry point that ties these pieces together.
 
----
+## What Each Python File Does
 
-## Machine Model
+### `main.py`
 
-The simulator assumes the following TM model:
+This is the main runner for the whole project.
 
-* **Deterministic** Turing Machine
-* **Single tape**
-* **One tape head**
-* Head can move only:
+It:
 
-  * `L` = left
-  * `R` = right
-* Two halting states:
+- provides the command-line interface
+- chooses between simulator mode and pi-algorithm mode
+- loads built-in machine presets such as `accept`, `reject`, `binary`, and `pi`
+- calls the parser to load `.tm` files
+- calls the simulator to execute machines
+- calls the pi generator to build `pi_calculator.tm`
 
-  * `qaccept`
-  * `qreject`
+If you want one file that represents the whole project workflow, this is it.
 
----
+### `Pushpdeep/parser.py`
 
-## Required TM Components
+This file is the parser for `.tm` machine descriptions.
 
-Each TM description should include these parts:
+It:
 
-1. **States**
-2. **Input alphabet**
-3. **Tape alphabet**
-4. **Blank symbol**
-5. **Start state**
-6. **Accept state**
-7. **Reject state**
-8. **Transition rules**
+- reads a Turing Machine file
+- ignores blank lines and comment lines
+- parses machine fields such as states, alphabets, blank symbol, and halting states
+- parses each transition line in the form `q0,1 -> q1,X,R`
+- checks for duplicate transitions
+- validates the final machine before it is used by the simulator
 
----
+This file is responsible for turning text into a valid in-memory machine.
 
-## Recommended Text Format
+### `Pushpdeep/tm_data.py`
 
-A TM can be written in a simple structured text format like this:
+This file defines the shared data structures used by the parser and simulator.
+
+It contains:
+
+- `TransitionAction`: one transition's result
+- `TMData`: the full Turing Machine definition
+
+`TMData` stores the machine's states, alphabets, special states, and transition table. In practice, this is the central data model for the project.
+
+### `Gurjasraj/simulator.py`
+
+This file is the Turing Machine execution engine.
+
+It:
+
+- defines the `Tape` class
+- defines the `TMSimulator` class
+- loads the input string onto the tape
+- reads and writes tape symbols
+- moves the head left or right
+- follows the transition table one step at a time
+- stops on accept, reject, missing transition, or max-step limit
+- records an execution trace for debugging
+
+This is the file that actually runs a Turing Machine after parsing.
+
+### `Gurjasraj/pi_algorithm.py`
+
+This file handles the pi-specific part of the assignment.
+
+It:
+
+- computes digits of pi using a spigot algorithm
+- optionally verifies those digits with `mpmath`
+- generates a `.tm` file that writes pi to `n` decimal places
+
+So this file does not simulate a machine directly. Instead, it creates a machine description that can later be simulated by `simulator.py`.
+
+### `dataclass.py`
+
+This file also defines `TransitionAction` and `TMData`.
+
+It appears to be an older or duplicate version of the shared data model. The active parser and simulator import `Pushpdeep/tm_data.py`, so that file is the one currently used in the working project flow.
+
+### `harmitha_tests.py`
+
+This is a simple script that runs another Python program with `subprocess` and checks whether some expected text appears in the output.
+
+Its purpose is basic output-based testing rather than full unit testing.
+
+### `test_pushpdeep.py`
+
+This is a `pytest`-style test file.
+
+It:
+
+- runs a Python script with `subprocess`
+- checks that the program exits successfully
+- checks that key parser output fields appear
+
+Like `harmitha_tests.py`, it is meant to test visible command-line behavior.
+
+## Machine Files
+
+The project also includes example machine descriptions in `Gurjasraj/Machines/`:
+
+- `simple_accept.tm`: accepts `1` and rejects `0`
+- `binary_increment.tm`: sample binary machine
+- `pi_calculator.tm`: generated pi machine
+
+## TM File Format
+
+The simulator expects a deterministic single-tape machine with:
+
+- `states`
+- `input_alphabet`
+- `tape_alphabet`
+- `blank`
+- `start`
+- `accept`
+- `reject`
+- `transitions`
+
+Example:
 
 ```text
-states: q0,q1,q2,qaccept,qreject
+states: q0,q1,qaccept,qreject
 input_alphabet: 0,1
- tape_alphabet: 0,1,X,B
+tape_alphabet: 0,1,X,B
 blank: B
 start: q0
 accept: qaccept
@@ -60,366 +148,79 @@ reject: qreject
 transitions:
 q0,1 -> q1,X,R
 q0,0 -> qreject,0,R
-q0,B -> qreject,B,R
-q1,1 -> q1,1,R
-q1,0 -> q2,0,L
 q1,B -> qaccept,B,R
 ```
 
-This format is easy to read and easy to parse in Python.
-
----
-
-## Meaning of Each Section
-
-### `states`
-
-A comma-separated list of all states used by the machine.
-
-Example:
+Each transition must follow:
 
 ```text
-states: q0,q1,q2,qaccept,qreject
+current_state,current_symbol -> next_state,write_symbol,direction
 ```
 
----
+The direction must be `L` or `R`, and each `(state, symbol)` pair can appear only once.
 
-### `input_alphabet`
+## How to Run the Project
 
-The symbols that are allowed in the original input.
+Run a built-in machine:
 
-Example:
-
-```text
-input_alphabet: 0,1
+```bash
+python main.py --machine accept
+python main.py --machine binary --input 101
 ```
 
----
+Run a specific `.tm` file:
 
-### `tape_alphabet`
-
-The symbols that may appear on the tape while the TM is running.
-This includes the input symbols plus any extra working symbols.
-
-Example:
-
-```text
-tape_alphabet: 0,1,X,B
+```bash
+python main.py --tm-file Gurjasraj/Machines/simple_accept.tm --input 1
 ```
 
-Here:
+Print the execution trace:
 
-* `0` and `1` are input symbols
-* `X` is a helper symbol
-* `B` is the blank symbol
-
----
-
-### `blank`
-
-The character used for empty tape cells.
-
-Example:
-
-```text
-blank: B
+```bash
+python main.py --machine accept --trace
 ```
 
----
+Generate the pi machine:
 
-### `start`
-
-The state where the TM begins execution.
-
-Example:
-
-```text
-start: q0
+```bash
+python main.py --mode pi-algorithm --pi-digits 5
 ```
 
----
+Generate and then simulate the pi preset:
 
-### `accept` and `reject`
-
-The halting states.
-
-Example:
-
-```text
-accept: qaccept
-reject: qreject
+```bash
+python main.py --machine pi --pi-digits 5
 ```
 
-When the TM reaches one of these states, execution stops.
-
----
-
-### `transitions`
-
-The list of transition rules.
-
-Each rule should follow this format:
-
-```text
-current_state,current_symbol -> next_state,write_symbol,move_direction
-```
-
-Example:
-
-```text
-q0,1 -> q1,X,R
-```
-
-This means:
-
-* If the TM is in state `q0`
-* and reads symbol `1`
-* then it will:
-
-  * move to state `q1`
-  * write `X`
-  * move the head to the right
-
----
-
-## Transition Rule Template
-
-General form:
-
-```text
-(q, a) -> (p, b, D)
-```
-
-Where:
-
-* `q` = current state
-* `a` = symbol currently being read
-* `p` = next state
-* `b` = symbol to write
-* `D` = head movement (`L` or `R`)
-
-Equivalent text form used by the simulator:
-
-```text
-q,a -> p,b,D
-```
-
----
-
-## Deterministic Rule Requirement
-
-This simulator expects a **deterministic** TM.
-That means:
-
-* For each pair `(state, symbol)`
-* there must be **at most one** transition rule
-
-Example of valid deterministic rules:
-
-```text
-q0,0 -> q1,X,R
-q0,1 -> q2,Y,L
-```
-
-Invalid example:
-
-```text
-q0,1 -> q1,X,R
-q0,1 -> q2,1,L
-```
-
-The second example is not allowed because the same `(state, symbol)` pair has two different transitions.
-
----
-
-## Example 1: Very Simple TM
-
-This TM accepts if the first symbol is `1` and rejects otherwise.
-
-```text
-states: q0,qaccept,qreject
-input_alphabet: 0,1
- tape_alphabet: 0,1,B
-blank: B
-start: q0
-accept: qaccept
-reject: qreject
-transitions:
-q0,1 -> qaccept,1,R
-q0,0 -> qreject,0,R
-q0,B -> qreject,B,R
-```
-
-### How it works
-
-* Input starts with `1` → accept
-* Input starts with `0` → reject
-* Empty input (`B`) → reject
-
----
-
-## Example 2: Expected Structure for the Pi Machine
-
-The TM for computing pi will be much larger, but it should still follow the same format.
-
-High-level example:
-
-```text
-states: q0,qLoadN,qInit,qCalc1,qCalc2,qWrite,qLoop,qaccept,qreject
-input_alphabet: 0,1,2,3,4,5,6,7,8,9
- tape_alphabet: 0,1,2,3,4,5,6,7,8,9,.,#,B,X,Y
-blank: B
-start: q0
-accept: qaccept
-reject: qreject
-transitions:
-q0,7 -> qLoadN,7,R
-qLoadN,B -> qInit,#,L
-...
-```
-
-The exact transitions will depend on the arithmetic method used to approximate pi.
-
----
-
-## Input to the Pi Machine
-
-For the pi TM, the input should represent the number of decimal places to compute.
-
-Example:
-
-```text
-7
-```
-
-Meaning:
-
-* compute pi to 7 decimal places
-
-Possible output on the tape:
-
-```text
-3.1415926
-```
-
-or
-
-```text
-3.1415927
-```
-
-depending on whether the machine truncates or rounds.
-
----
-
-## Suggested Design for the Simulator
-
-The Python simulator should read the TM description and store it in a structure similar to this:
-
-```python
-transitions[(current_state, current_symbol)] = (next_state, write_symbol, move)
-```
-
-Example:
-
-```python
-transitions[("q0", "1")] = ("q1", "X", "R")
-```
-
-This makes it easy to:
-
-* look up the current rule
-* write to the tape
-* move the head
-* update the state
-
----
-
-## Tape Behavior
-
-The simulator should support:
-
-* reading the symbol under the head
-* writing a new symbol
-* moving left or right
-* expanding the tape when needed
-
-A simple implementation can treat missing cells as blank (`B`).
-
----
-
-## Halting Conditions
-
-The machine stops when:
-
-* the current state becomes `qaccept`, or
-* the current state becomes `qreject`
-
-It is also a good idea for the Python simulator to include:
-
-* a maximum step limit
-
-This helps prevent infinite loops during debugging.
-
----
-
-## Good Formatting Rules for TM Files
-
-To keep the parser simple, follow these rules:
-
-* Use commas to separate symbols and states
-* Use `->` for transitions
-* Use one transition per line
-* Keep state names consistent
-* Use only one blank symbol
-* Use only `L` or `R` for movement
-* Do not repeat the same `(state, symbol)` pair
-
----
-
-## Recommended File Extension
-
-You can store TM descriptions in files like:
-
-```text
-simple.tm
-pi_7.tm
-```
-
-Then the Python program can read the file contents as a string and simulate the machine.
-
----
+## Libraries, Versions, and Licenses
+
+The Python files in this repository use the following libraries:
+
+| Library | Where it is used | Version | License |
+| --- | --- | --- | --- |
+| Python | Entire project runtime | `3.12.10` in the current local environment | PSF License |
+| `argparse` | `main.py`, `Gurjasraj/pi_algorithm.py`, `Gurjasraj/simulator.py` | Standard library module shipped with Python `3.12.10` | PSF License |
+| `pathlib` | `main.py`, `Pushpdeep/parser.py`, `Gurjasraj/pi_algorithm.py`, `Gurjasraj/simulator.py` | Standard library module shipped with Python `3.12.10` | PSF License |
+| `sys` | `main.py`, `Pushpdeep/parser.py`, `Gurjasraj/simulator.py` | Standard library module shipped with Python `3.12.10` | PSF License |
+| `typing` | `dataclass.py`, `Pushpdeep/tm_data.py`, `Pushpdeep/parser.py`, `Gurjasraj/simulator.py` | Standard library module shipped with Python `3.12.10` | PSF License |
+| `dataclasses` | `dataclass.py`, `Pushpdeep/tm_data.py` | Standard library module shipped with Python `3.12.10` | PSF License |
+| `collections` | `Gurjasraj/simulator.py` uses `defaultdict` | Standard library module shipped with Python `3.12.10` | PSF License |
+| `subprocess` | `harmitha_tests.py`, `test_pushpdeep.py` | Standard library module shipped with Python `3.12.10` | PSF License |
+| `mpmath` | Optional verification in `Gurjasraj/pi_algorithm.py` | Not installed in the current local environment | BSD license |
+
+Notes:
+- `mpmath` is optional. The pi generator still runs without it, but digit verification is skipped if it is not installed.
 
 ## Summary
 
-A valid TM description for this project should clearly define:
+In the full project:
 
-* the machine states
-* alphabets
-* blank symbol
-* start/accept/reject states
-* deterministic transition rules
+- `parser.py` reads and validates machine descriptions
+- `tm_data.py` stores the machine in Python objects
+- `simulator.py` executes the machine
+- `pi_algorithm.py` creates a pi-specific machine
+- `main.py` connects everything into one runnable program
 
-The same format can be used for:
+## Vlog
 
-* small test machines
-* larger machines such as the pi approximation TM
-
-This allows one Python simulator to execute any TM description written in the required format.
-
----
-
-## Vlog Section
-## Vlog of Jang - https://drive.google.com/file/d/1EGtaC6TZnZOiMsCeG1nlmsicSlw_G9bi/view?usp=drive_link
-
-## Possible Future Improvements
-
-Later, the format could be extended to support:
-
-* comments
-* multi-character tape symbols
-* optional stay move (`S`)
-* multiple tapes
-* machine metadata
-
-For the current project, the deterministic single-tape format above is enough.
+Vlog of Jang: https://drive.google.com/file/d/1EGtaC6TZnZOiMsCeG1nlmsicSlw_G9bi/view?usp=drive_link
