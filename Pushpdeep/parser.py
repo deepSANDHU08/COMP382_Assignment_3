@@ -10,6 +10,7 @@ from Pushpdeep.tm_data import TMData, TransitionAction
 
 
 def parse_list(value: str) -> List[str]:
+    # Split comma-separated configuration fields into normalized tokens.
     parts = value.split(',')
     return [part.strip() for part in parts if part.strip()]
 
@@ -27,6 +28,8 @@ def parse_transition_line(line: str) -> Tuple[Tuple[str, str], TransitionAction]
     left_parts = [part.strip() for part in left.split(",")]
     right_parts = [part.strip() for part in right.split(",")]
 
+    # The left side identifies which transition to look up, while the right side
+    # describes the action the machine should take when that transition fires.
     current_state, read_symbol = left_parts
     next_state, write_symbol, direction = right_parts
 
@@ -38,6 +41,8 @@ def parse_transition_line(line: str) -> Tuple[Tuple[str, str], TransitionAction]
     return key, action
 
 def validate_tm(tm: TMData) -> None:
+    # Validate cross-references after parsing so malformed machine definitions
+    # fail fast before execution begins.
     # Check special states
     if tm.start_state not in tm.states:
         raise ValueError(f"Start state '{tm.start_state}' is not in states.")
@@ -77,7 +82,7 @@ def validate_tm(tm: TMData) -> None:
 def parse_tm_file(file_path: str) -> TMData:
     with open(file_path, "r", encoding="utf-8") as file:
         lines = file.readlines()
-        # Remove empty lines and comment lines
+        # Remove empty lines and full-line comments before parsing fields.
     cleaned_lines = []
     for line in lines:
         line = line.strip()
@@ -94,6 +99,7 @@ def parse_tm_file(file_path: str) -> TMData:
 
     for line in cleaned_lines:
         if line.lower() == "transitions:":
+            # Everything after this marker is parsed as transition rules.
             in_transitions = True
             continue
 
@@ -112,7 +118,7 @@ def parse_tm_file(file_path: str) -> TMData:
                 raise ValueError(f"Duplicate transition for {key} - machine must be deterministic.")
             transitions[key] = action
 
-    # Build TMData from the parsed fields
+    # Assemble the parsed configuration into the shared TMData structure.
     tm = TMData(
         states=parse_list(fields["states"]),
         input_alphabet=parse_list(fields["input_alphabet"]),
