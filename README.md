@@ -221,6 +221,12 @@ In the full project:
 - `pi_algorithm.py` creates a pi-specific machine
 - `main.py` connects everything into one runnable program
 
+## Bonus
+
+As a bonus addition, the project also includes a web-based Turing Machine interface in `Gurjasraj/tm_simulator_gui.html`.
+
+This was made as a webpage version of the simulator idea so the project can also be presented through a browser-based GUI, not only through Python command-line scripts.
+
 ## Vlog
 
 Vlog of Jang: https://drive.google.com/file/d/1EGtaC6TZnZOiMsCeG1nlmsicSlw_G9bi/view?usp=drive_link
