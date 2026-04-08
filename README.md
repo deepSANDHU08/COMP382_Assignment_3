@@ -211,6 +211,15 @@ The Python files in this repository use the following libraries:
 Notes:
 - `mpmath` is optional. The pi generator still runs without it, but digit verification is skipped if it is not installed.
 
+## References
+- Neso Academy. (n.d.). Turing machine - Introduction (Part 1) [Video]. YouTube. https://www.youtube.com/watch?v=PvLaPKPzq2I
+- Neso Academy. (n.d.). Turing machine - Introduction (Part 2) [Video]. YouTube. https://www.youtube.com/watch?v=GPSk9tRsK2I
+- Neso Academy. (n.d.). Turing machine (Formal definition) [Video]. YouTube. https://www.youtube.com/watch?v=yFEdBR-rP9g
+- Neso Academy. (n.d.). Turing machine (Example 1) [Video]. YouTube. https://www.youtube.com/watch?v=D9eF_B8URnw
+- Neso Academy. (n.d.). Turing machine (Example 2) [Video]. YouTube. https://www.youtube.com/watch?v=cR4Re0YfoOo
+- Rabinowitz, S., & Wagon, S. (1995). A spigot algorithm for the digits of pi. The American Mathematical Monthly, 102(3), 195–203.
+- Polymath Unlimited. (n.d.). A MILLION digits of Pi with 77 lines of code (Pi-day Special) [Video]. YouTube. https://www.youtube.com/watch?v=Y2EKdbVVH4o
+
 ## Summary
 
 In the full project:
