@@ -238,4 +238,25 @@ This was made as a webpage version of the simulator idea so the project can also
 
 ## Vlog
 
+For the current project, the deterministic single-tape format above is enough.
+
+## Testing and Validation
+
+The system was tested using both valid and invalid Turing Machine inputs.
+
+- Verified that the parser correctly loads TM components such as states, alphabets, and transitions.
+- Checked that invalid inputs produce appropriate error messages.
+- Implemented automated test cases in Python to validate the functionality of `main.py` and parser logic.
+- Used subprocess-based testing to run the program and verify output.
+
+Screenshots of successful execution have been added as proof.
+
+## References
+
+Python Software Foundation. (n.d.). *unittest — Unit testing framework*. https://docs.python.org/3/library/unittest.html
+
+Corey Schafer. (2019, July 24). *Python tutorial: Calling external commands using the subprocess module* [Video]. YouTube. https://www.youtube.com/watch?v=2Fp1N6dof0Y
+
+ProgrammingKnowledge. (n.d.). *Python unit testing tutorial* [Video]. YouTube. https://www.youtube.com/watch?v=6tNS--WetLI
+
 Vlog of Jang: https://drive.google.com/file/d/1EGtaC6TZnZOiMsCeG1nlmsicSlw_G9bi/view?usp=drive_link
